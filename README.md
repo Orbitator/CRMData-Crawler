@@ -89,6 +89,11 @@ Neben dem lokalen Keyword-Crawling (`Crawlen`) gibt es jetzt eine **echte KI-Ana
 Optional lässt sich pro Unternehmen im Bearbeiten-Dialog ein **Website-/Quelltext** einfügen –
 nützlich, wenn automatisches Crawling per CORS blockiert wird.
 
+Nach `KI-Analyse` erscheint über der Tabelle ein **Auswertungs-Panel**: eine umgangssprachliche
+Einschätzung, wie hoch das ermittelte Potenzial **bezogen auf die hinterlegten Suchbegriffe** ist
+(inkl. Score, Priorität und der Liste der ausgewerteten Suchbegriffe). Liefert die KI keine
+Einschätzung (oder greift der Keyword-Fallback), wird der Text lokal aus Score/Tags erzeugt.
+
 ## Quellen & Crawling (global)
 
 Unter **Quellen & Crawling** wird **global** festgelegt, welche Portale gecrawlt werden – die
@@ -108,7 +113,9 @@ Einstellung gilt für alle Unternehmen und neue Ausschreibungen. Voreingestellt 
 | Dealfront (Echobot/Leadfeeder) | nein (Login/Abo) |
 
 Portale lassen sich aktivieren/deaktivieren, umbenennen, ergänzen und entfernen. Platzhalter in
-URL-Vorlagen: `{q}` = Firmenname, `{domain}` = Website-Domain.
+URL-Vorlagen: `{q}` = Firmenname, `{domain}` = Website-Domain. Die vorbelegten URLs zeigen jeweils
+auf die **frei zugängliche (Freemium-)Suche** des Portals (z. B. Firmenwissen-Kurzprofile,
+Bundesanzeiger-Freitextsuche, OpenCorporates-Websuche) – editierbar, falls sich ein Endpunkt ändert.
 
 ### CORS / echtes Crawling
 
