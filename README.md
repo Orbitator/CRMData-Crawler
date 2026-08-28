@@ -67,6 +67,34 @@ bis zu vier Varianten des Request-Bodys:
 Die Antwort wird aus `choices[0].message.content` gelesen. Ohne diesen Fallback schlug der
 Verbindungstest mit den oben genannten Deployment-Werten zuvor immer fehl.
 
+## Diagnose-Logbuch
+
+Die App führt ein Logbuch, das bei Problemen (z. B. Azure-Fehlern) alles Nötige zur Analyse
+festhält – **ohne den API-Schlüssel**.
+
+- **Persistenz:** Das Log liegt in `localStorage` (`also-crm-intelligence-log`, letzte 500 Zeilen)
+  und übersteht einen Reload. So geht nach einem fehlgeschlagenen Test nichts verloren.
+- **Erfasst wird u. a.:** vorbereitete Request-URL, Parameter-Fallback-Schritte, erfolgreiche
+  Aufrufe, HTTP-Fehler mit Status/Detail und Azure-Kontext (Endpoint-Host, Deployment,
+  API-Version, ob ein Schlüssel gesetzt ist und dessen **Länge** – nie der Schlüssel selbst),
+  Netzwerk-/CORS-Fehler sowie unerwartete JavaScript-Fehler (`window_error`,
+  `unhandled_rejection`).
+- **Herunterladen:** Button **„Logfile herunterladen"** auf der Azure-Seite und unter
+  **Diagnose & Tests**. Die Datei beginnt mit einem Kopfblock (Zeitpunkt, Protokoll,
+  UserAgent, maskierter Azure-Kontext) und ist damit ohne Rückfragen auswertbar.
+- **Weitergeben:** Bei einem Problem einfach das heruntergeladene
+  `also-diagnostics-<Zeitstempel>.log` schicken – es enthält keine Geheimnisse.
+
+### HTTP 401 richtig deuten
+
+`Azure HTTP 401: … invalid subscription key or wrong API endpoint` bedeutet, dass die
+Anfrage Azure erreicht, die Authentifizierung aber scheitert. Ursachen:
+
+1. Falscher oder abgelaufener **API-Schlüssel**.
+2. **Endpoint/Region passt nicht zum Schlüssel** – der Schlüssel muss zur Azure-OpenAI-Ressource
+   des eingetragenen Endpoints gehören (Schlüssel und Endpoint aus **derselben** Ressource
+   in „Keys and Endpoint" kopieren).
+
 ## Daten
 
 Die Browserdaten liegen in `localStorage`. API-Schlüssel werden nicht in Backup-Dateien und nicht im Logfile ausgegeben.
