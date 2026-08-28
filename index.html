@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALSO CRM Intelligence</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">ALSO</div><div><h1>CRM Intelligence</h1><span>CRM-Crawler · Enrichment · Sales Intelligence</span></div></div>
+  <div class="top-actions"><button class="btn ghost" data-action="backup">Backup</button><button class="btn ghost" data-action="import">Import</button><input id="fileImport" type="file" accept=".json,.csv" hidden><button class="btn primary" data-action="add">+ Unternehmen</button></div>
+</header>
+<div class="app">
+  <aside class="sidebar">
+    <div class="side-title">Arbeitsbereiche</div>
+    <button class="nav active" data-view="dashboard">◈ Dashboard</button>
+    <button class="nav" data-view="companies">▦ Unternehmen</button>
+    <button class="nav" data-view="raw">▤ Raw Data Explorer</button>
+    <button class="nav" data-view="tags">◇ Tag Explorer</button>
+    <button class="nav" data-view="clusters">◎ CRM Cluster</button>
+    <button class="nav" data-view="sales">↗ Sales Intelligence</button>
+    <button class="nav" data-view="tender">▣ Tender AI Context</button>
+    <button class="nav" data-view="azure">⚙ Azure AI Setup</button>
+    <button class="nav" data-view="diagnostics">✓ Diagnose & Tests</button>
+    <div class="side-footer">Lokaler Prototype<br><small>Keine Serverkomponente erforderlich</small></div>
+  </aside>
+  <main id="main"></main>
+</div>
+<div id="modal" class="modal hidden"></div>
+<div id="toast" class="toast hidden"></div>
+<script src="app.js"></script>
+</body></html>
