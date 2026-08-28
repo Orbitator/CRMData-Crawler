@@ -23,6 +23,8 @@
 - Azure OpenAI Setup mit Endpoint, Deployment, API-Version und API-Schlüssel
 - echter Verbindungstest
 - Azure-Analysepfad mit bidirektionaler Anfrage/Antwort-Struktur
+- KI-gestützte Anreicherung: echtes Crawling der Quellen + strukturierte Extraktion (JSON) per Azure OpenAI, mit Keyword-Fallback
+- Globale Quellen-/Portalkonfiguration (welche Portale gecrawlt werden)
 - Unit Tests einschließlich Azure-Live-Test
 - Diagnose-Logfile
 
@@ -66,6 +68,59 @@ bis zu vier Varianten des Request-Bodys:
 
 Die Antwort wird aus `choices[0].message.content` gelesen. Ohne diesen Fallback schlug der
 Verbindungstest mit den oben genannten Deployment-Werten zuvor immer fehl.
+
+## KI-Anreicherung (Kernfunktion)
+
+Neben dem lokalen Keyword-Crawling (`Crawlen`) gibt es jetzt eine **echte KI-Analyse**
+(`KI-Analyse` pro Unternehmen bzw. `KI: Alle analysieren`):
+
+1. **Crawling:** Für jedes Unternehmen werden die unter **Quellen & Crawling** aktivierten
+   Portale abgerufen (die Firmen-Website direkt, Portale per URL-Vorlage mit `{q}` =
+   Firmenname). Der HTML-Inhalt wird zu reinem Text reduziert.
+2. **KI-Extraktion:** Der gesammelte Text plus die CRM-Felder gehen an das Azure-OpenAI-Deployment.
+   Das Modell liefert **strukturiertes JSON** (`response_format: json_object`, mit Fallback) mit
+   Herstellern, Technologien, Geschäftsfeldern, NACE-Code, Kaufsignalen und **Evidence**
+   (Textbeleg + Quelle + Confidence). Hersteller/Technologien/Geschäftsfelder werden auf die
+   erlaubte Kanon-Liste der App eingeschränkt, damit Cluster und Scoring konsistent bleiben.
+3. **Fallback:** Ist Azure nicht erreichbar (z. B. 401) oder die Antwort unbrauchbar, greift
+   automatisch das bisherige Keyword-Crawling – es geht nie etwas verloren, und der Grund steht
+   im Logbuch.
+
+Optional lässt sich pro Unternehmen im Bearbeiten-Dialog ein **Website-/Quelltext** einfügen –
+nützlich, wenn automatisches Crawling per CORS blockiert wird.
+
+## Quellen & Crawling (global)
+
+Unter **Quellen & Crawling** wird **global** festgelegt, welche Portale gecrawlt werden – die
+Einstellung gilt für alle Unternehmen und neue Ausschreibungen. Voreingestellt sind:
+
+| Portal | Standard aktiv |
+|---|---|
+| Firmen-Website | ja (nutzt `website_url`) |
+| Northdata | ja |
+| OpenCorporates | ja |
+| unternehmensregister.de | ja |
+| bundesanzeiger.de | ja |
+| CompanyHouse | nein (Login/Abo) |
+| Firmenwissen | nein (Login/Abo) |
+| Evidat | nein (Login/Abo) |
+| Genios Firmen | nein (Login/Abo) |
+| Dealfront (Echobot/Leadfeeder) | nein (Login/Abo) |
+
+Portale lassen sich aktivieren/deaktivieren, umbenennen, ergänzen und entfernen. Platzhalter in
+URL-Vorlagen: `{q}` = Firmenname, `{domain}` = Website-Domain.
+
+### CORS / echtes Crawling
+
+Direkte Abrufe fremder Portale aus `file://` blockiert der Browser meist per CORS. Zwei Auswege:
+
+- Den Browser mit `--disable-web-security --allow-file-access-from-files` aus einem isolierten
+  Profil starten (nur für diese lokale Nutzung), **oder**
+- unter **Quellen & Crawling** ein **CORS-Proxy-Präfix** hinterlegen, an das die Ziel-URL
+  angehängt wird. Der Proxy sieht die abgerufenen URLs – nur vertrauenswürdige Proxys nutzen.
+
+Portale hinter Login/Abo (CompanyHouse, Firmenwissen, Evidat, Genios, Dealfront) liefern ohne
+gültige Session ohnehin keinen Inhalt; sie sind daher vorkonfiguriert, aber deaktiviert.
 
 ## Diagnose-Logbuch
 
