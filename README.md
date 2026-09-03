@@ -24,6 +24,7 @@
 - echter Verbindungstest
 - Azure-Analysepfad mit bidirektionaler Anfrage/Antwort-Struktur
 - KI-gestützte Anreicherung: echtes Crawling der Quellen + strukturierte Extraktion (JSON) per Azure OpenAI, mit Keyword-Fallback
+- Firmographics-Erfassung (Mitarbeiterzahl, Umsatz, Niederlassungen, Gründungsjahr, Rechtsform, Hauptsitz, Branche)
 - Globale Quellen-/Portalkonfiguration (welche Portale gecrawlt werden)
 - Unit Tests einschließlich Azure-Live-Test
 - Diagnose-Logfile
@@ -88,6 +89,21 @@ Neben dem lokalen Keyword-Crawling (`Crawlen`) gibt es jetzt eine **echte KI-Ana
 
 Optional lässt sich pro Unternehmen im Bearbeiten-Dialog ein **Website-/Quelltext** einfügen –
 nützlich, wenn automatisches Crawling per CORS blockiert wird.
+
+### Firmographics (alle vertriebsrelevanten Daten)
+
+Die KI-Analyse gleicht nicht nur die vorgegebenen Tags ab, sondern erfasst aus dem Quelltext
+**alle vertriebsrelevanten Firmendaten** in `firmographics`:
+
+- Mitarbeiterzahl und Unternehmensgröße (Größenklasse)
+- Jahresumsatz (z. B. „45 Mio. EUR" – wird automatisch in eine Zahl geparst und fließt in den
+  Opportunity-Score ein)
+- Anzahl Niederlassungen/Standorte
+- Gründungsjahr, Rechtsform, Hauptsitz (Ort/Land) und Branche
+
+Leere CRM-Stammfelder (Mitarbeiterklasse, Rechtsform, Ort, Land, Branche, Umsatz) werden dabei
+aus den Firmographics ergänzt; bereits vorhandene Werte bleiben unberührt. Mitarbeiterzahl,
+Niederlassungen und Gründungsjahr lassen sich im Bearbeiten-Dialog auch manuell pflegen.
 
 Nach `KI-Analyse` erscheint über der Tabelle ein **Auswertungs-Panel**: eine umgangssprachliche
 Einschätzung, wie hoch das ermittelte Potenzial **bezogen auf die hinterlegten Suchbegriffe** ist
