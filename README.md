@@ -98,8 +98,14 @@ Die KI-Analyse gleicht nicht nur die vorgegebenen Tags ab, sondern erfasst aus d
 - Mitarbeiterzahl und Unternehmensgröße (Größenklasse)
 - Jahresumsatz (z. B. „45 Mio. EUR" – wird automatisch in eine Zahl geparst und fließt in den
   Opportunity-Score ein)
-- Anzahl Niederlassungen/Standorte
+- Anzahl Niederlassungen/Standorte und **in welchen Ländern** (location_countries)
 - Gründungsjahr, Rechtsform, Hauptsitz (Ort/Land) und Branche
+
+Unter der KI-Auswertung erscheint **immer** ein Datenblatt **„Gewonnene Stammdaten"**
+(Unternehmensgröße, Mitarbeiterzahl, Umsatz, Niederlassungen, Länder, Hauptsitz, Rechtsform,
+Gründungsjahr, Branche, NACE). Fehlende Werte stehen als „unbekannt"; vorhandene CRM-Stammdaten
+werden dort auch ohne KI angezeigt. Ist noch gar nichts bekannt, weist ein Hinweis auf die
+Azure-Verbindung (401?) bzw. fehlenden Quelltext hin.
 
 Leere CRM-Stammfelder (Mitarbeiterklasse, Rechtsform, Ort, Land, Branche, Umsatz) werden dabei
 aus den Firmographics ergänzt; bereits vorhandene Werte bleiben unberührt. Mitarbeiterzahl,
