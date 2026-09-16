@@ -70,6 +70,38 @@ bis zu vier Varianten des Request-Bodys:
 Die Antwort wird aus `choices[0].message.content` gelesen. Ohne diesen Fallback schlug der
 Verbindungstest mit den oben genannten Deployment-Werten zuvor immer fehl.
 
+## Vertriebs-Profil (steuert die KI-Analyse)
+
+Unter **Vertriebs-Profil** wird global festgelegt, nach welchem Vertriebs-Blickwinkel Unternehmen
+bewertet werden. Ein Profil bündelt:
+
+- **Persona & Leitfrage** (der Blickwinkel, mit dem die KI jedes Unternehmen betrachtet),
+- **Use-Case-Kategorien**, nach denen gezielt gesucht wird,
+- **Readiness-Dimensionen** (Ampel ja/teilweise/nein/unbekannt),
+- **Compliance-Themen** (mit Belegkategorie),
+- **Score-Gewichte** (gewichteter Fit-Score) und **A/B/C/D-Grenzen**.
+
+Mitgeliefert sind zwei umschaltbare Startprofile:
+- **IT-Distribution (ALSO)** – Modern Workplace, Cloud/Azure, Security, Managed Services …
+- **Defence Additive Manufacturing** – Produktionshilfsmittel, Ersatzteile, Kleinserien, Supply-Chain-Resilienz …
+
+So bedient **ein** Motor mehrere Vertriebsfelder – Profil umschalten genügt. Alles ist editierbar
+(Persona, Listen, Gewichte, Bänder) und wird global in `state.settings.profiles` gespeichert.
+
+### Was die KI-Analyse mit dem Profil liefert
+
+Nach **KI-Analyse** zeigt das Panel zusätzlich:
+- **Gewichteter Fit-Score** (0–100) mit **A/B/C/D-Account**-Einordnung und Aufschlüsselung der Treiber,
+- **Supply-Chain-Rolle** (OEM/Tier-1/2/3 …),
+- **Use Cases** je mit Beleg und **Belegkategorie** (nachgewiesen / wahrscheinlich relevant / zu prüfen / nicht bekannt),
+- **Readiness**-Ampeln je Dimension,
+- **Buying Center** (relevante Funktionen + Interessen),
+- **Compliance**-Themen mit Belegkategorie,
+- Zusammenfassung getrennt nach **Fakten / Hypothesen / Prüfpunkte / Nicht bekannt**.
+
+Ohne funktionierende Azure-Verbindung greift der Keyword-Fallback; der Fit-Score wird dann aus einer
+lokalen Heuristik über dieselben Profil-Gewichte gebildet (im Panel als „Heuristik" gekennzeichnet).
+
 ## KI-Anreicherung (Kernfunktion)
 
 Neben dem lokalen Keyword-Crawling (`Crawlen`) gibt es jetzt eine **echte KI-Analyse**
