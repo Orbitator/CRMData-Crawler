@@ -186,8 +186,11 @@ Leere CRM-Stammfelder (Mitarbeiterklasse, Rechtsform, Ort, Land, Branche, Umsatz
 aus den Firmographics ergänzt; bereits vorhandene Werte bleiben unberührt. Mitarbeiterzahl,
 Niederlassungen und Gründungsjahr lassen sich im Bearbeiten-Dialog auch manuell pflegen.
 
-Nach `KI-Analyse` öffnet sich das **Fenster (Modal) des jeweiligen Unternehmens** mit der
-Auswertung – nicht über der Tabelle. Darin: eine umgangssprachliche
+Nach `KI-Analyse` öffnet sich das **Detailfenster des jeweiligen Unternehmens**. Die Auswertung
+ist dort als **dauerhaft eingebetteter, ein-/ausklappbarer Abschnitt „KI-Auswertung"** hinterlegt
+(kein separates Popup) – sie bleibt am Unternehmen gespeichert und ist beim erneuten Öffnen über
+„Bearbeiten" wieder da; per Klick auf die Überschrift auf-/zuklappbar, aktualisierbar über
+„KI-Analyse aktualisieren". Darin: eine umgangssprachliche
 Einschätzung, wie hoch das ermittelte Potenzial **bezogen auf die hinterlegten Suchbegriffe** ist
 (inkl. Score, Priorität und der Liste der ausgewerteten Suchbegriffe). Liefert die KI keine
 Einschätzung (oder greift der Keyword-Fallback), wird der Text lokal aus Score/Tags erzeugt.
