@@ -98,7 +98,9 @@ Nach **KI-Analyse** zeigt das Panel zusätzlich:
 - **Readiness**-Ampeln je Dimension,
 - **Buying Center** (relevante Funktionen + Interessen),
 - **Compliance**-Themen mit Belegkategorie,
-- Zusammenfassung getrennt nach **Fakten / Hypothesen / Prüfpunkte / Nicht bekannt**.
+- Zusammenfassung getrennt nach **Fakten / Hypothesen / Prüfpunkte / Nicht bekannt** – jede
+  belegte Aussage mit **anklickbarem Quellen-Link (↗ Beleg)** zur konkreten Fundstelle
+  (z. B. die Pressemitteilung zu einem neuen Standort).
 
 Ohne funktionierende Azure-Verbindung greift der Keyword-Fallback; der Fit-Score wird dann aus einer
 lokalen Heuristik über dieselben Profil-Gewichte gebildet (im Panel als „Heuristik" gekennzeichnet).
@@ -228,7 +230,9 @@ vom LLM geschätzt.
 
 Im KI-Auswertungs-Panel (inline unter der Unternehmenszeile) erscheint dafür ein eigener Block
 **„Veränderungs- & Opportunity-Analyse"** mit den drei KPIs sowie je Signal: Typ, Belegkategorie-Badge,
-Datum + Alter-Faktor, Beleg, Quelle und – falls zutreffend – den erkannten Kombinationen.
+Datum + Alter-Faktor, Beleg, **anklickbare Quelle** und – falls zutreffend – den erkannten
+Kombinationen. Jedes belegte Signal (z. B. „neuer geplanter Standort") trägt den **Deep-Link zur
+konkreten Fundstelle**, sodass sich die Aussage direkt per Klick nachprüfen lässt.
 
 **Datenquellen für Signale:** Neben Website-/Presse-Unterseiten sind unter **Quellen & Crawling**
 zusätzlich **Stellenbörsen** (StepStone, Indeed, Bundesagentur für Arbeit) und **News**
