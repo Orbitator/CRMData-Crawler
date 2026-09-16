@@ -186,11 +186,10 @@ Leere CRM-Stammfelder (Mitarbeiterklasse, Rechtsform, Ort, Land, Branche, Umsatz
 aus den Firmographics ergänzt; bereits vorhandene Werte bleiben unberührt. Mitarbeiterzahl,
 Niederlassungen und Gründungsjahr lassen sich im Bearbeiten-Dialog auch manuell pflegen.
 
-Nach `KI-Analyse` öffnet sich das **Detailfenster des jeweiligen Unternehmens**. Die Auswertung
-ist dort als **dauerhaft eingebetteter, ein-/ausklappbarer Abschnitt „KI-Auswertung"** hinterlegt
-(kein separates Popup) – sie bleibt am Unternehmen gespeichert und ist beim erneuten Öffnen über
-„Bearbeiten" wieder da; per Klick auf die Überschrift auf-/zuklappbar, aktualisierbar über
-„KI-Analyse aktualisieren". Darin: eine umgangssprachliche
+Nach `KI-Analyse` klappt die Auswertung **direkt in der Liste unter der Unternehmenszeile** auf –
+kein separates Popup. Über den Button **„▾ Auswertung"** in der Zeile lässt sie sich jederzeit
+**ein-/ausklappen**, „Einklappen" schließt sie, „KI-Analyse aktualisieren" berechnet neu. Die
+Auswertung bleibt am Unternehmen gespeichert. Darin: eine umgangssprachliche
 Einschätzung, wie hoch das ermittelte Potenzial **bezogen auf die hinterlegten Suchbegriffe** ist
 (inkl. Score, Priorität und der Liste der ausgewerteten Suchbegriffe). Liefert die KI keine
 Einschätzung (oder greift der Keyword-Fallback), wird der Text lokal aus Score/Tags erzeugt.
@@ -217,6 +216,21 @@ Portale lassen sich aktivieren/deaktivieren, umbenennen, ergänzen und entfernen
 URL-Vorlagen: `{q}` = Firmenname, `{domain}` = Website-Domain. Die vorbelegten URLs zeigen jeweils
 auf die **frei zugängliche (Freemium-)Suche** des Portals (z. B. Firmenwissen-Kurzprofile,
 Bundesanzeiger-Freitextsuche, OpenCorporates-Websuche) – editierbar, falls sich ein Endpunkt ändert.
+
+### Unterseiten-Crawling
+
+Für die **Firmen-Website** wird nicht nur die Startseite gelesen, sondern es werden auch
+**relevante Unterseiten** verfolgt (Impressum, Über uns, Kontakt, Standorte, Karriere, **Presse/News**).
+Ist die hinterlegte URL selbst eine **Übersichts-/Listenseite** (z. B. eine Pressemitteilungs-Übersicht),
+folgt der Crawler den **verlinkten Einzelseiten** (einzelne Meldungen) – begrenzt (bounded), gleiche
+Domain, mit Budget gegen zu viele Abrufe. So werden vertriebsrelevante Infos (neue Standorte,
+Umsatz, Mitarbeiterzahlen) gefunden, die nur auf Unterseiten stehen.
+
+### Geschätzte Stammdaten
+
+Liegt kein Quelltext vor (z. B. weil CORS das Crawling blockiert), darf die KI **bekannte
+Firmendaten aus ihrem Wissen** ergänzen (nur bei erkennbar bekannten Unternehmen) und markiert
+diese im Datenblatt mit **„(geschätzt)"**. Tags, Evidence und Compliance bleiben streng belegpflichtig.
 
 ### CORS / echtes Crawling
 
