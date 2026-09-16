@@ -26,6 +26,7 @@
 - KI-gestützte Anreicherung: echtes Crawling der Quellen + strukturierte Extraktion (JSON) per Azure OpenAI, mit Keyword-Fallback
 - Firmographics-Erfassung (Mitarbeiterzahl, Umsatz, Niederlassungen, Gründungsjahr, Rechtsform, Hauptsitz, Branche)
 - Globale Quellen-/Portalkonfiguration (welche Portale gecrawlt werden)
+- Veränderungs- & Opportunity-Analyse (Change-Signale, MPS-Opportunity, Confidence)
 - Unit Tests einschließlich Azure-Live-Test
 - Diagnose-Logfile
 
@@ -194,6 +195,50 @@ Einschätzung, wie hoch das ermittelte Potenzial **bezogen auf die hinterlegten 
 (inkl. Score, Priorität und der Liste der ausgewerteten Suchbegriffe). Liefert die KI keine
 Einschätzung (oder greift der Keyword-Fallback), wird der Text lokal aus Score/Tags erzeugt.
 
+## Veränderungs- & Opportunity-Analyse (Change-Signale)
+
+Zusätzlich zum statischen Fit-Score leitet die App aus **Veränderungs-Nachrichten** ab, wie
+wahrscheinlich bestimmte Signale zu einem günstigen Vertriebsfenster (Investition/Beschaffung)
+führen. Erster Use Case: **Managed Print Services (MPS)** und Microsoft-365-/Workplace-nahe
+Lösungen. Die Logik ist generisch und über weitere Opportunity-Profile erweiterbar.
+
+**Token-schonende Umsetzung:** Die semantische Signal-Erkennung ist an die **eine** bestehende
+Azure-Analyse angehängt (kein zweiter LLM-Aufruf). Das Modell liefert nur die belegten
+Veränderungen als kompakte Liste `change_signals` (`type`, `date`, `evidence`, `source_url`,
+`kind`). **Scoring, Zeit-Decay und Kombinationen werden vollständig im Code berechnet** – nicht
+vom LLM geschätzt.
+
+- **Signaltypen** (global in `state.settings.opp.weights`, gewichtet): Wachstum
+  (EMPLOYEE_GROWTH, HIRING_GROWTH …), Expansion (NEW_LOCATION, OFFICE_RELOCATION, SITE_EXPANSION,
+  INTERNATIONAL_EXPANSION …), Organisation (NEW_IT_MANAGER, NEW_CIO, NEW_PROCUREMENT_MANAGER,
+  NEW_FACILITY_MANAGER, RESTRUCTURING), Corporate Events (ACQUISITION, MERGER, NEW_SUBSIDIARY),
+  Investitionen (INVESTMENT_ANNOUNCED, FUNDING_RECEIVED, DIGITALIZATION_INVESTMENT), Konsolidierung.
+- **Zeitliche Relevanz (Decay):** Ältere Signale werden automatisch abgewertet
+  (0–30 Tage → 1,0; 31–90 → 0,85; 91–180 → 0,60; 181–365 → 0,35; > 365 → 0,10) – konfigurierbar
+  unter `state.settings.opp.decay`.
+- **Fakt vs. Hypothese:** Jedes Signal trägt eine **Belegkategorie** `FACT` / `INFERENCE` /
+  `HYPOTHESIS` (im Panel als farbiges Badge), die zusätzlich in die Gewichtung einfließt. Nie wird
+  unbelegt behauptet, ein Unternehmen „brauche neue Drucker".
+- **Signal-Kombinationen:** Zusammenpassende Signale werden stärker bewertet (z. B.
+  `NEW_LOCATION + HIRING_GROWTH` → wahrscheinlicher Ausbau der Workplace-/Print-Infrastruktur) –
+  konfigurierbar unter `state.settings.opp.combos`.
+- **Scores:** `Change` (aktuelle Veränderungsdynamik), `MPS-Opportunity` (0,6·MPS-Signalanteil +
+  0,4·Fit-Score) und `Confidence` (aus Belegkategorie und Aktualität). Die Werte werden bei jeder
+  Analyse in `changeHistory` **historisiert**, sodass die Entwicklung über die Zeit sichtbar wird.
+
+Im KI-Auswertungs-Panel (inline unter der Unternehmenszeile) erscheint dafür ein eigener Block
+**„Veränderungs- & Opportunity-Analyse"** mit den drei KPIs sowie je Signal: Typ, Belegkategorie-Badge,
+Datum + Alter-Faktor, Beleg, Quelle und – falls zutreffend – den erkannten Kombinationen.
+
+**Datenquellen für Signale:** Neben Website-/Presse-Unterseiten sind unter **Quellen & Crawling**
+zusätzlich **Stellenbörsen** (StepStone, Indeed, Bundesagentur für Arbeit) und **News**
+(Google News) als Portale vorbereitet (standardmäßig deaktiviert). Recruiting-Dynamik ist ein
+besonders früher Indikator für Wachstum, neue Standorte und neue Führungskräfte.
+
+**Weitere Opportunity-Profile ergänzen:** Ein neues Profil (z. B. ERP, CRM, Cloud, Security)
+entsteht durch Ergänzen einer weiteren MPS-artigen Signal-Auswahl/-Gewichtung in
+`state.settings.opp` – die Kernlogik (Extraktion, Decay, Kombinationen, Scoring) bleibt unverändert.
+
 ## Quellen & Crawling (global)
 
 Unter **Quellen & Crawling** wird **global** festgelegt, welche Portale gecrawlt werden – die
@@ -211,6 +256,10 @@ Einstellung gilt für alle Unternehmen und neue Ausschreibungen. Voreingestellt 
 | Evidat | nein (Login/Abo) |
 | Genios Firmen | nein (Login/Abo) |
 | Dealfront (Echobot/Leadfeeder) | nein (Login/Abo) |
+| StepStone (Stellen/Recruiting) | nein (Change-Signale) |
+| Indeed (Stellen/Recruiting) | nein (Change-Signale) |
+| Bundesagentur für Arbeit (Jobbörse) | nein (Change-Signale) |
+| Google News (Veränderungs-Signale) | nein (Change-Signale) |
 
 Portale lassen sich aktivieren/deaktivieren, umbenennen, ergänzen und entfernen. Platzhalter in
 URL-Vorlagen: `{q}` = Firmenname, `{domain}` = Website-Domain. Die vorbelegten URLs zeigen jeweils
