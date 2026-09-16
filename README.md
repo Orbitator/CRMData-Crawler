@@ -102,6 +102,23 @@ Nach **KI-Analyse** zeigt das Panel zusätzlich:
 Ohne funktionierende Azure-Verbindung greift der Keyword-Fallback; der Fit-Score wird dann aus einer
 lokalen Heuristik über dieselben Profil-Gewichte gebildet (im Panel als „Heuristik" gekennzeichnet).
 
+## Globale Lernschleife (Rückkanal)
+
+Korrekturen fließen global zurück und verbessern künftige Analysen – auch bei **neuen**
+Unternehmen. Im KI-Auswertungs-Panel gibt es dafür einen Lern-Bereich:
+
+- **Regel lernen** – ein freier Hinweis (z. B. „reine Handelsfirmen niedriger werten"), der in
+  den KI-Prompt einfließt.
+- **Normalisierung lernen** – ein Rohbegriff → Kanon-Tag (z. B. `o365 → Microsoft 365`); wirkt
+  im KI-Prompt **und** in der lokalen Keyword-Heuristik.
+- **Als Fehltreffer** – ein Signal, das kein starker Indikator ist; wird künftig unterdrückt.
+- **Als Positivbeispiel** – übernimmt das aktuelle Unternehmen als Muster und leitet daraus eine
+  Regel ab.
+
+Alles wird global in `state.settings.learn` gespeichert und ist unter **Vertriebs-Profil →
+Gelerntes (global)** einsehbar und löschbar. So kumuliert die Qualität über alle Unternehmen und
+Profile hinweg – ganz im Sinne der globalen Lernschleife.
+
 ## KI-Anreicherung (Kernfunktion)
 
 Neben dem lokalen Keyword-Crawling (`Crawlen`) gibt es jetzt eine **echte KI-Analyse**
