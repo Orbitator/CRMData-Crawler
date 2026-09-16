@@ -131,6 +131,20 @@ Alles wird global in `state.settings.learn` gespeichert und ist unter **Vertrieb
 Gelerntes (global)** einsehbar und löschbar. So kumuliert die Qualität über alle Unternehmen und
 Profile hinweg – ganz im Sinne der globalen Lernschleife.
 
+### Qualitäts-Gate für gelernte Regeln
+
+Bevor eine gelernte Regel aktiv wird, prüft ein Gate drei Kriterien:
+
+- **Spezifität** – z. B. Normalisierungs-Begriff mindestens 3 Zeichen, kein generisches Stichwort;
+  Ziel muss ein bekannter Kanon-Tag sein; Regeltext ausreichend lang.
+- **Negativ-Korpus** – Gegenbeispiele (Text ≠ Tags) unter „Gelerntes (global)" pflegbar; eine
+  Normalisierung, die einem Gegenbeispiel ein verbotenes Tag geben würde, wird abgelehnt.
+- **Dublette / Precision-Guard** – bereits vorhandene Regeln werden nicht doppelt aktiviert; ein
+  Fehltreffer-Tag, das ein Positivbeispiel benötigt, wird blockiert (schützt die Precision).
+
+Nicht bestandene Regeln landen mit Begründung in **„wartet auf Freigabe"** und können dort
+gezielt **„Trotzdem aktivieren"** oder **„Verwerfen"** werden.
+
 ## KI-Anreicherung (Kernfunktion)
 
 Neben dem lokalen Keyword-Crawling (`Crawlen`) gibt es jetzt eine **echte KI-Analyse**
