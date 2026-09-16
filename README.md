@@ -102,6 +102,18 @@ Nach **KI-Analyse** zeigt das Panel zusätzlich:
 Ohne funktionierende Azure-Verbindung greift der Keyword-Fallback; der Fit-Score wird dann aus einer
 lokalen Heuristik über dieselben Profil-Gewichte gebildet (im Panel als „Heuristik" gekennzeichnet).
 
+## Export der Analyse
+
+Auf der Seite **Unternehmen** exportieren zwei Buttons die angereicherten Daten für den Vertrieb:
+
+- **Export CSV** – eine Zeile pro Unternehmen mit Stammdaten (Größe, Mitarbeiter, Umsatz,
+  Niederlassungen, Länder, Hauptsitz …), **Fit-Score + A/B/C/D-Band**, Supply-Chain-Rolle,
+  Use Cases (mit Belegkategorie), Buying Center, Compliance, Tags und Zusammenfassung – direkt
+  für Excel/CRM.
+- **Export JSONL** – ein JSON-Objekt pro Unternehmen mit der vollständigen Struktur (inkl.
+  Readiness-Ampeln, Evidence und Fakten/Hypothesen/Prüfpunkte) – ideal als Übergabe an
+  nachgelagerte Systeme oder Embeddings.
+
 ## Globale Lernschleife (Rückkanal)
 
 Korrekturen fließen global zurück und verbessern künftige Analysen – auch bei **neuen**
