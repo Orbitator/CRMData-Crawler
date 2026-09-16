@@ -176,7 +176,7 @@ Die KI-Analyse gleicht nicht nur die vorgegebenen Tags ab, sondern erfasst aus d
 - Anzahl Niederlassungen/Standorte und **in welchen Ländern** (location_countries)
 - Gründungsjahr, Rechtsform, Hauptsitz (Ort/Land) und Branche
 
-Unter der KI-Auswertung erscheint **immer** ein Datenblatt **„Gewonnene Stammdaten"**
+Im KI-Auswertungs-Fenster erscheint **immer** ein Datenblatt **„Gewonnene Stammdaten"**
 (Unternehmensgröße, Mitarbeiterzahl, Umsatz, Niederlassungen, Länder, Hauptsitz, Rechtsform,
 Gründungsjahr, Branche, NACE). Fehlende Werte stehen als „unbekannt"; vorhandene CRM-Stammdaten
 werden dort auch ohne KI angezeigt. Ist noch gar nichts bekannt, weist ein Hinweis auf die
@@ -186,7 +186,8 @@ Leere CRM-Stammfelder (Mitarbeiterklasse, Rechtsform, Ort, Land, Branche, Umsatz
 aus den Firmographics ergänzt; bereits vorhandene Werte bleiben unberührt. Mitarbeiterzahl,
 Niederlassungen und Gründungsjahr lassen sich im Bearbeiten-Dialog auch manuell pflegen.
 
-Nach `KI-Analyse` erscheint über der Tabelle ein **Auswertungs-Panel**: eine umgangssprachliche
+Nach `KI-Analyse` öffnet sich das **Fenster (Modal) des jeweiligen Unternehmens** mit der
+Auswertung – nicht über der Tabelle. Darin: eine umgangssprachliche
 Einschätzung, wie hoch das ermittelte Potenzial **bezogen auf die hinterlegten Suchbegriffe** ist
 (inkl. Score, Priorität und der Liste der ausgewerteten Suchbegriffe). Liefert die KI keine
 Einschätzung (oder greift der Keyword-Fallback), wird der Text lokal aus Score/Tags erzeugt.
