@@ -81,7 +81,21 @@ bewertet werden. Ein Profil bündelt:
 - **Use-Case-Kategorien**, nach denen gezielt gesucht wird,
 - **Readiness-Dimensionen** (Ampel ja/teilweise/nein/unbekannt),
 - **Compliance-Themen** (mit Belegkategorie),
-- **Score-Gewichte** (gewichteter Fit-Score) und **A/B/C/D-Grenzen**.
+- **Score-Gewichte** (gewichteter Fit-Score) und **A/B/C/D-Grenzen**,
+- **Zielbranchen** (Mehrfachauswahl aus der Akquise-Branchenliste) für die profilgesteuerte Firmensuche.
+
+Profile lassen sich hier **neu anlegen** (per Klon des aktiven Profils), **umbenennen**, **umschalten**
+und **löschen**; neue Profile erscheinen sofort in der Auswahl. Über **„Nach gewählten Branchen suchen"**
+startet eine Firmensuche für die im Profil markierten Zielbranchen – per Implisense (falls aktiv),
+sonst per KI – und importiert die Treffer in den Reiter **Akquise**.
+
+Die **Implisense-Anbindung** (Firmendaten & Signale) wird unter **Quellen & Crawling** konfiguriert
+(Basis-URL, API-Schlüssel, Pfade, POST-Suche); der Schlüssel bleibt lokal. Neben der
+**Firmensuche nach Name/Stichwort** gibt es dort **„Branche importieren"** – alle Firmen einer
+gewählten Branche (Industry-Filter, konfigurierbarer `Branchen-Such-Body`). Erscheint beim
+Testen **„Failed to fetch"**, blockiert CORS den Direktaufruf aus `file://`: dann oben ein
+**CORS-Proxy-Präfix** hinterlegen (Implisense-Aufrufe laufen dann mit durch) und/oder die App
+mit `--disable-web-security --allow-file-access-from-files` starten.
 
 Mitgeliefert sind zwei umschaltbare Startprofile:
 - **IT-Distribution (ALSO)** – Modern Workplace, Cloud/Azure, Security, Managed Services …
