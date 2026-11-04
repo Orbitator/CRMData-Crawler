@@ -1,0 +1,51 @@
+[
+  {
+    "company_id": "CRM-10001",
+    "company_name": "Beispiel IT Solutions GmbH",
+    "website_url": "https://www.example.com",
+    "legal_form": "GmbH",
+    "industry": "IT-Systemhaus",
+    "nace_code": "62.02",
+    "nace_label": "IT-Beratung",
+    "employee_range": "50-99",
+    "city": "Köln",
+    "country": "Deutschland",
+    "crm_revenue": 180000,
+    "raw_tags": [
+      "Microsoft",
+      "Azure",
+      "Microsoft 365",
+      "Managed Services",
+      "HP",
+      "Veeam"
+    ],
+    "crawl_status": "pending",
+    "priority": "B",
+    "opportunity_score": 0,
+    "notes": ""
+  },
+  {
+    "company_id": "CRM-10002",
+    "company_name": "Nord Print & Office AG",
+    "website_url": "https://www.also.com",
+    "legal_form": "AG",
+    "industry": "Print Services",
+    "nace_code": "46.66",
+    "nace_label": "Großhandel mit sonstigen Büromaschinen",
+    "employee_range": "100-249",
+    "city": "Hamburg",
+    "country": "Deutschland",
+    "crm_revenue": 95000,
+    "raw_tags": [
+      "Canon",
+      "Ricoh",
+      "Print Management",
+      "Managed Print Services",
+      "Document Management"
+    ],
+    "crawl_status": "pending",
+    "priority": "C",
+    "opportunity_score": 0,
+    "notes": ""
+  }
+]
