@@ -27,6 +27,7 @@
 - Firmographics-Erfassung (Mitarbeiterzahl, Umsatz, Niederlassungen, Gründungsjahr, Rechtsform, Hauptsitz, Branche)
 - Globale Quellen-/Portalkonfiguration (welche Portale gecrawlt werden)
 - Veränderungs- & Opportunity-Analyse (Change-Signale, MPS-Opportunity, Confidence)
+- Akquise-Modul (Vermarktung von Tender AI): Branchen, Marktanbieter, Kontakte, Priorisierung, Outlook-Export, KI-E-Mails, A/B-Lernen, Opt-out, Implisense-Connector
 - Unit Tests einschließlich Azure-Live-Test
 - Diagnose-Logfile
 
@@ -296,6 +297,27 @@ Direkte Abrufe fremder Portale aus `file://` blockiert der Browser meist per COR
 
 Portale hinter Login/Abo (CompanyHouse, Firmenwissen, Evidat, Genios, Dealfront) liefern ohne
 gültige Session ohnehin keinen Inhalt; sie sind daher vorkonfiguriert, aber deaktiviert.
+
+## Akquise (Vermarktung von Tender AI)
+
+Eigener Reiter **Akquise** (Sidebar) zur Neukunden-Gewinnung für Tender AI. Alles global in
+`state.settings.akquise`, bleibt lokal.
+
+- **Pflegbare Branchenliste**, vorbefüllt aus der Passgenauigkeits-Liste (7 geeignete Branchen
+  inkl. „Passt, weil / Anzupassen", 2 als „weniger geeignet").
+- **Marktanbieter je Branche** – manuell oder per KI-Vorschlag (Azure, als „zu prüfen" markiert).
+- **Kontaktdatenbank** je Anbieter mit Priorisierung (A–D, Flags „heiß/nachfassen",
+  Schlüsselkontakt) und Such-Links; KI schlägt Vertriebsrollen vor (Namen bleiben manuell).
+- **Outlook-Export** (CSV, UTF-8-BOM, alle Felder, Priorität/Flags als Kategorien).
+- **KI-E-Mails je Phase** (Erstansprache → Nutzen/Follow-up → Terminvorschlag →
+  Lead-Qualifizierung) über die bestehende Azure-Anbindung; „In Outlook öffnen" per `mailto:`.
+- **Antwort-Auswertung**: Kundenantwort einfügen → KI klassifiziert und erzeugt die Folge-Mail;
+  übernommene Muster lernen global (wirken auch bei neuen Anbietern).
+- **Nachfass-Fristen**, **Dubletten-Check**, **Signatur** (im Code zuverlässig angehängt),
+  **Erstansprache-A/B mit Lernen**, **Opt-out/Blacklist (DSGVO)**.
+- **Implisense-Connector (v2)**: konfigurierbar (Basis-URL, API-Schlüssel, Pfade, POST-Suche);
+  Firmensuche→Import und Anreicherung mit Firmendaten + Veränderungs-Ereignissen. Der Schlüssel
+  bleibt lokal; Endpunkte sind an den gebuchten Zugang (docs.implisense.com/v2/docs) anpassbar.
 
 ## Diagnose-Logbuch
 
