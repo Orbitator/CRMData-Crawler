@@ -96,7 +96,11 @@ Die **Implisense-Anbindung** (Firmendaten & Signale) wird unter **Quellen & Craw
 gewählten Branche (Industry-Filter, konfigurierbarer `Branchen-Such-Body`). Erscheint beim
 Testen **„Failed to fetch"**, blockiert CORS den Direktaufruf aus `file://`: dann oben ein
 **CORS-Proxy-Präfix** hinterlegen (Implisense-Aufrufe laufen dann mit durch) und/oder die App
-mit `--disable-web-security --allow-file-access-from-files` starten.
+mit `--disable-web-security --allow-file-access-from-files` starten. **Empfohlen:** der
+mitgelieferte **lokale Proxy** unter `proxy/` (`proxy\start-proxy.cmd`, Node 18+) – er löst CORS
+**und** hält den Implisense-Schlüssel serverseitig. CORS-Proxy-Präfix dann:
+`http://127.0.0.1:8787/proxy?url=` und das API-Schlüssel-Feld in der App leer lassen
+(Details: `proxy/README.md`).
 
 Mitgeliefert sind zwei umschaltbare Startprofile:
 - **IT-Distribution (ALSO)** – Modern Workplace, Cloud/Azure, Security, Managed Services …
