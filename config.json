@@ -1,6 +1,6 @@
 {
   "app": "ALSO CRM Intelligence",
-  "version": "fixed-complete-1.7",
+  "version": "fixed-complete-1.8",
   "webserver_required": false,
   "azure_api": "chat/completions"
 }
