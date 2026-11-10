@@ -28,6 +28,7 @@
 - Globale Quellen-/Portalkonfiguration (welche Portale gecrawlt werden)
 - Veränderungs- & Opportunity-Analyse (Change-Signale, MPS-Opportunity, Confidence)
 - Akquise-Modul (Vermarktung von Tender AI): Branchen, Marktanbieter, Kontakte, Priorisierung, Outlook-Export, KI-E-Mails, A/B-Lernen, Opt-out, Implisense-Connector
+- Branchensuche ohne Firmennamen: Firmen einer/mehrerer Branchen per KI (Azure) finden – unabhängig von externen Daten-APIs/CORS; alternativ per Implisense
 - Unit Tests einschließlich Azure-Live-Test
 - Diagnose-Logfile
 
